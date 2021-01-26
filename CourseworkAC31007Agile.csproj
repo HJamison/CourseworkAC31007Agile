@@ -5,4 +5,9 @@
     <UserSecretsId>fdd8f1cd-a64a-4474-963f-0719fd09d78b</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.6.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+  </ItemGroup>
+
 </Project>
