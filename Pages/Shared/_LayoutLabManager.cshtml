@@ -6,6 +6,11 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,15 +18,23 @@
             <a class="navbar-brand" href="#">Project</a>
             <div class="collapse navbar-collapse" .id="navbarAltMarkup">
                 <div class="navbar-nav ml-5">
-                    <a class="nav-item nav-link active ml-4 mr-4" href="#">Account</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Account Manager</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Experiment Manager</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Experiment Dashboard</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Questionnaire Dashboard</a>
+                    <a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/LabManagerAccount">Account</a>
+                    <a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/AccountManager">Account Manager</a>
+                    <a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/ExperimentManager">Experiment Manager</a>
+                    <a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/ExperimentDashboard">Experiment Dashboard</a>
+                    <a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/QuestionnaireDashboard">Questionnaire Dashboard</a>
                 </div>
             </div>
         </nav>
     </header>
-    @RenderBody()
+
+
+    @RenderBody();
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
 </body>
 </html>
