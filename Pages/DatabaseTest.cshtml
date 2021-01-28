@@ -1,0 +1,23 @@
+﻿@page
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@model IndexModel
+@{
+    ViewData["Title"] = "Database Test";
+}
+
+<div class="text-center">
+    <h1> Testing Database Query: </h1>
+    <p>Printing out questions</p>
+    <ul>@{
+           await using (var db = new DatabaseContext())
+           {
+               var questions = db.Questions
+                   .Where(b => b.Questionnaire == 1)
+                   .ToList();
+               foreach (var question in questions)
+               {
+                   <li>@question.Question</li>
+               }
+           }
+       }</ul>
+</div>

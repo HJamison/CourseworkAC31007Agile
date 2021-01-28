@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="BackEnd\DatabaseModel\POCO_generate_command.txt" />
+  </ItemGroup>
+
 </Project>
