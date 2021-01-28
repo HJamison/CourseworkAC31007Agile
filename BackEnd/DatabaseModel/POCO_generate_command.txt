@@ -1,0 +1,2 @@
+﻿dotnet ef dbcontext scaffold "Server=tcp:agile-coursework-server.database.windows.net,1433;Initial Catalog=StorageForTheBois;Persist Security Info=False;User ID=dbadmin;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -o "BackEnd\DatabaseModel" -c "DatabaseContext" -force
+
