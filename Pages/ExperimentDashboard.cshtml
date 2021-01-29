@@ -22,7 +22,7 @@
         }
 
         .profile-form h2 {
-            margin: 0 0 15px;
+            /*margin: 0 0 15px;*/
         }
 
     .profile-control, .btn {
@@ -35,12 +35,26 @@
         border-radius: 20px;
         width: 150px;
     }
+
+    .center-embed-form {
+        position: absolute;
+        margin: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 600px;
+        min-height: 350px;
+    }
 </style>
 
-<div class="container">
-    <div class="profile-form">
-        <form>
-            <h2>Active Experiments: </h2>
-        </form>
-    </div>
+<div class="profile-form">
+    <form>
+        <div class="container">
+            <div class="profile-form">
+                <h2 class="text-center">Active Experiments:</h2>
+                <embed class="center-embed-form" src="https://www.youtube.com/embed/zJwbZX4i-N4"></embed>
+
+            </div>
+        </div>
+    </form>
 </div>
