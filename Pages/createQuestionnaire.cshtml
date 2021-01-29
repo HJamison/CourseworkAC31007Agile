@@ -1,0 +1,62 @@
+﻿@page
+@model CourseworkAC31007Agile.Pages.createQuestionnaireModel
+@{
+}
+@{
+    ViewData["Title"] = "Create Questionnaire";
+}
+
+@{
+    Layout = "_questionnaireLayout";
+}
+
+<style>
+    .profile-form {
+        width: 1100px;
+        margin: 25px auto;
+    }
+
+        .profile-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 30px;
+        }
+
+        .profile-form h2 {
+            margin: 0 0 15px;
+        }
+
+    .profile-control, .btn {
+        min-height: 38px;
+    }
+
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 20px;
+        width: 150px;
+    }
+</style>
+
+<html lang="en">
+<head>
+    <!-- Acquired from https://www.webdeveloperguide.in/add-survey-creator-form-builder-into-your-website-surveyjs/ -->
+    <title>Survey JS - Survey Creator Example</title>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://surveyjs.azureedge.net/1.7.28/survey.ko.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.10/ace.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.10/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+    <link href="https://surveyjs.azureedge.net/1.7.28/survey-creator.css" type="text/css" rel="stylesheet" />
+    <script src="https://surveyjs.azureedge.net/1.7.28/survey-creator.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="surveyContainer">
+        <div id="creatorElement"></div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

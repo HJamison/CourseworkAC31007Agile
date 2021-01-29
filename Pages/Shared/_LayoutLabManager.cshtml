@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background-color: transparent;
+        }
+        .profile-form {
+            min-height: 500px;
+        }
+        .navbar-custom {
+            background-color: rgb(67,101,226);
+        } 
+
+        .navbar-text {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand navbar-custom">
+            <a class="navbar-brand navbar-text" href="PrincipalResearcherAccount">Project</a>
+            <div class="collapse navbar-collapse" .id="navbarAltMarkup">
+                <div class="navbar-nav ml-5">
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/LabManagerAccount">Account</a>
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/AccountManager">Account Manager</a>
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/ExperimentManager">Experiment Manager</a>
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/ExperimentDashboard">Experiment Dashboard</a>
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/questionnaireManagement">Questionnaire Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    @RenderBody();
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+</body>
+</html>
