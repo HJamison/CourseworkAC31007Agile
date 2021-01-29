@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<style>
+		body {
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Project</a>
+			<div class="collapse navbar-collapse" .id="navbarAltMarkup">
+				<div class="navbar-nav ml-5">
+					<!--<a href="PrincipalResearchAccount.cshtml" class="btn">Account</a>
+	<a href="PrincipalResearchAccessability.cshtml class=" btn"">Co-Researcher accessability</a>
+	<a href="PrincipalResearchExperiments.cshtml class=" btn"">Experiment Dashboard</a>-->
+					<!--<a class="nav-item nav-link active ml-4 mr-4" href="#">Account</a>
+					<a class="nav-item nav-link ml-4 mr-4" href="#">Co-Researcher accessability</a>
+					<a class="nav-item nav-link ml-4 mr-4" href="#">Access own experiments</a>
+					<a class="nav-item nav-link ml-4 mr-4" href="#">Logout</a>-->
+					<a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/PrincipalResearcherAccount">Account</a>
+					<a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/PrincipalResearcherAccessability">Co-researcher Accessability</a>
+					<a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/PrincipalResearcherExperiments">Access own experiments</a>
+					<a class="nav-item nav-link ml-4 mr-4" asp-area="" asp-page="/Logout">Logout</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
+		</div>
+	</footer>
+	@RenderBody()
+</body>
+</html>
