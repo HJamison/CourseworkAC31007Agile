@@ -2,9 +2,18 @@
 @using CourseworkAC31007Agile.BackEnd.DatabaseModel
 @using System.Text.Encodings.Web
 @using System.Reflection.Metadata
+@using Microsoft.AspNetCore.Http
 @model IndexModel
 @{
   ViewData["Title"] = "Database Test";
+}
+
+@{
+  var questionnaireId = "";
+  if (HttpMethods.IsGet(Request.Method))
+  {
+    questionnaireId = Request.Query["id"];
+  }
 }
 
 <div class="text-center">
@@ -13,10 +22,15 @@
   @{
     using (var db = new DatabaseContext())
     {
-      var questions = db.Questions
-        .Where(b => b.Questionnaire == 1)
-        .OrderBy(b => b.OrderInQuestionnaire)
-        .ToList();
+      var questions = new List<Questions>(0);
+      if (questionnaireId != "")
+      {
+        questions = db.Questions
+          .Where(b => b.Questionnaire == int.Parse(questionnaireId))
+          .OrderBy(b => b.OrderInQuestionnaire)
+          .ToList();
+        
+      }
       <form>
         @{
           var susQuestions = new List<Questions>();
