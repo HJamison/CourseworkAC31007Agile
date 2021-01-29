@@ -40,16 +40,30 @@
     }
 </style>
 
-<div class="dropdown show">
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Select Questionnaire to Share
-    </a>
+<div class="profile-form">
+    <form>
+        <div class="container">
+            <div class="profile-form">
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Questionnaire to Share
+                    </a>
 
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#">Questionnaire 1</a>
-        <a class="dropdown-item" href="#">Questionnaire 2</a>
-        <a class="dropdown-item" href="#">Questionnaire 3</a>
-    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Questionnaire 1</a>
+                        <a class="dropdown-item" href="#">Questionnaire 2</a>
+                        <a class="dropdown-item" href="#">Questionnaire 3</a>
+                    </div>
+                </div>
+
+                <a href="#" type="button" class="btn btn-primary btn-lg btn-block">Share by Email </a>
+                <!-- Taken https://www.tutorialspoint.com/html/html_email_links.htm#:~:text=HTML%20tag%20provides%20you,mailto%20instead%20of%20using%20http.&text=This%20code%20will%20generate%20the,can%20use%20to%20send%20email. from -->
+                <a href="mailto:? &subject=Questionnaire&body=Please fill in my questionnaire at http://ac31007-coursework-dev-as.azurewebsites.net/DatabaseTest">
+                    Share by Email
+                </a>
+            </div>
+        </div>
+    </form>
 </div>
 
-<a href="#" type="button" class="btn btn-primary btn-lg btn-block">Share by Email</a>
+
