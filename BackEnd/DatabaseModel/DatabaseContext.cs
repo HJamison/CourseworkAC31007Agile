@@ -25,7 +25,6 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
         public virtual DbSet<Questions> Questions { get; set; }
         public virtual DbSet<ResearchOwners> ResearchOwners { get; set; }
         public virtual DbSet<ResearchProjects> ResearchProjects { get; set; }
-        public virtual DbSet<SystemUsabilityScales> SystemUsabilityScales { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -224,11 +223,6 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Questions_Questionnaires_Id_fk");
 
-                entity.HasOne(d => d.Sus)
-                    .WithMany(p => p.Questions)
-                    .HasForeignKey(d => d.SusId)
-                    .HasConstraintName("Questions_System Usability Scales_id_fk");
-
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.Questions)
                     .HasForeignKey(d => d.Type)
@@ -286,24 +280,6 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
                     .IsRequired()
                     .HasColumnName("title")
                     .HasColumnType("text");
-            });
-
-            modelBuilder.Entity<SystemUsabilityScales>(entity =>
-            {
-                entity.HasKey(e => e.Id)
-                    .HasName("System Usability Scales_pk")
-                    .IsClustered(false);
-
-                entity.ToTable("System Usability Scales");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Questionnaire).HasColumnName("questionnaire");
-
-                entity.HasOne(d => d.QuestionnaireNavigation)
-                    .WithMany(p => p.SystemUsabilityScales)
-                    .HasForeignKey(d => d.Questionnaire)
-                    .HasConstraintName("System Usability Scales_Questionnaires_Id_fk");
             });
 
             modelBuilder.Entity<Users>(entity =>

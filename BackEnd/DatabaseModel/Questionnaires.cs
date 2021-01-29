@@ -10,7 +10,6 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
             Answers = new HashSet<Answers>();
             FilledQuestionnaires = new HashSet<FilledQuestionnaires>();
             Questions = new HashSet<Questions>();
-            SystemUsabilityScales = new HashSet<SystemUsabilityScales>();
         }
 
         public int Id { get; set; }
@@ -22,6 +21,5 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
         public virtual ICollection<Answers> Answers { get; set; }
         public virtual ICollection<FilledQuestionnaires> FilledQuestionnaires { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
-        public virtual ICollection<SystemUsabilityScales> SystemUsabilityScales { get; set; }
     }
 }

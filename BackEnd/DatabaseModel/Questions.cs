@@ -20,7 +20,6 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
         public int? SusId { get; set; }
 
         public virtual Questionnaires QuestionnaireNavigation { get; set; }
-        public virtual SystemUsabilityScales Sus { get; set; }
         public virtual QuestionTypes TypeNavigation { get; set; }
         public virtual ICollection<Answers> Answers { get; set; }
     }
