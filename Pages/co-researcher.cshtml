@@ -10,19 +10,47 @@
     Layout = "_LayoutCoResearcher";
 }
 
+<style>
+    .profile-form {
+        width: 1100px;
+        margin: 25px auto;
+    }
+
+        .profile-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 30px;
+        }
+
+        .profile-form h2 {
+            margin: 0 0 15px;
+        }
+
+    .profile-control, .btn {
+        min-height: 38px;
+    }
+
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 20px;
+        width: 150px;
+    }
+</style>
+
 <div class="profile-form">
     <form>
         <div class="container">
             <div class="profile-form">
                 <div class="container">
                     <div class="row">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="questionnaireManagment" class="btn btn-primary btn-lg">Manage Questionnaire</a>
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="#" class="btn btn-primary btn-lg">See Experiment Data</a>
-                            </div>
+                        <div class="col-sm-6">
+                            <a href="questionnaireManagment" class="btn btn-primary btn-lg">Manage Questionnaire</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="#" class="btn btn-primary btn-lg">See Experiment Data</a>
                         </div>
                     </div>
                 </div>
