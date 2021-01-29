@@ -1,8 +1,11 @@
-AC31007/AC51003 Agile Software Engineering - Group Number 10
+# AC31007/AC51003 Agile Software Engineering - Group Number 10
 
-http://ac31007-coursework-dev-as.azurewebsites.net/
+ live version: http://ac31007-coursework-dev-as.azurewebsites.net/
+ 
+ # Sprint 1
+ scrum meeting: https://web.microsoftstream.com/video/83800e3c-0c90-4090-9684-b0307e1cc155
 
-Group Members:
+# Group Members:
 
 - Alex Storey ()
 - Harry Jamison ()
