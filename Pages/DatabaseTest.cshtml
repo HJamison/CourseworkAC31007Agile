@@ -1,23 +1,106 @@
 ﻿@page
 @using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@using System.Text.Encodings.Web
+@using System.Reflection.Metadata
 @model IndexModel
 @{
-    ViewData["Title"] = "Database Test";
+  ViewData["Title"] = "Database Test";
 }
 
 <div class="text-center">
-    <h1> Testing Database Query: </h1>
-    <p>Printing out questions</p>
-    <ul>@{
-           await using (var db = new DatabaseContext())
-           {
-               var questions = db.Questions
-                   .Where(b => b.Questionnaire == 1)
-                   .ToList();
-               foreach (var question in questions)
-               {
-                   <li>@question.Question</li>
-               }
-           }
-       }</ul>
+  <h1> Testing Database Query: </h1>
+  <p>Printing out questions</p>
+  @{
+    using (var db = new DatabaseContext())
+    {
+      var questions = db.Questions
+        .Where(b => b.Questionnaire == 1)
+        .OrderBy(b => b.OrderInQuestionnaire)
+        .ToList();
+      <form>
+        @{
+          var susQuestions = new List<Questions>();
+          foreach (var question in questions)
+          {
+            var choices = question.Choices == null ? new string[0] : question.Choices.Split(",");
+            if (!question.OrderInSus.HasValue) // Display the question only if it's not part of a System Usability Scale
+            {
+              <h3>@question.Question</h3>
+            }
+            switch (question.Type)
+            {
+              case "checkbox":
+                foreach (var choice in choices)
+                {
+                  @:<input type="checkbox" id="@(question.Id).@choice" name="@(question.Id)" value="@choice">
+                  <label>@choice</label>
+                }
+                break;
+              case "radio-button":
+                if (question.SusId == null) // If not part of System Usability Scale
+                {
+                  foreach (var choice in choices)
+                  {
+                    @:<input type="radio" id="@(question.Id).@choice" name="@question.Id" value="@choice">
+                    <label>@choice</label>
+                  }
+                }
+                else // If part of a System Usability Scale
+                {
+                  susQuestions.Add(question);
+                }
+                break;
+              case "multi-line-text":
+                @:<textarea id="@question.Id" name="@question.Id" rows="4" cols="50"></textarea>
+                break;
+              case "single-line-text":
+                @:<input type="text" id="@question.Id" name="@question.Id">
+                break;
+            }
+          }
+          foreach (var question in questions)
+          {
+            // For all usability scale question group:
+            if (question.Type == "system-usability-scale")
+            {
+              var header = question.Choices == null ? new string[0] : question.Choices.Split(",");
+              var subQuestions = susQuestions.FindAll(q => q.SusId == question.Id); // Questions in the group
+              <table id="@(question.SusId)_SUS">
+                <thead>
+                <tr>
+                  <th></th>
+                  @foreach (var head in header)
+                  {
+                    @:<th>@head</th>
+                  }
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var subQuestion in subQuestions)
+                {
+                  <tr>
+                    @* First column contains the questions *@
+                    <td>@subQuestion.Question</td>
+                    @{
+                      if (subQuestion.Choices != null)
+                      {
+                        foreach (var choice in subQuestion.Choices.Split(",")) // Display the choices row by row
+                        {
+                          <td>
+                            <input type="radio" id="@(question.Id).@choice" name="@question.Id" value="@choice">
+                            <label>@choice</label>
+                          </td>
+                        }
+                      }
+                    }
+                  </tr>
+                }
+                </tbody>
+              </table>
+            }
+          }
+        }
+      </form>
+    }
+  }
 </div>
