@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background-color: transparent;
+        }
+
+        .profile-form {
+            min-height: 500px;
+        }
+
+        .navbar-custom {
+            background-color: rgb(67,101,226);
+        }
+
+        .navbar-text {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand navbar-custom">
+
+            @*<a class="navbar-brand navbar-text" href="co-researcher">Project</a>*@
+            <img href="co-researcher" src="/images/uniLogo.png" alt="University of Dundee" />
+            <div class="collapse navbar-collapse" .id="navbarAltMarkup">
+                <div class="navbar-nav ml-5">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
