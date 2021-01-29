@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseworkAC31007Agile", "CourseworkAC31007Agile.csproj", "{D6D66B89-4B63-451E-AAF1-3F9C39F2862A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateQuestionaireAppBlazor", "..\CreateQuestionaireAppBlazor\CreateQuestionaireAppBlazor.csproj", "{24BED6B0-4868-46B0-8000-EE35140E9974}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D6D66B89-4B63-451E-AAF1-3F9C39F2862A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6D66B89-4B63-451E-AAF1-3F9C39F2862A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6D66B89-4B63-451E-AAF1-3F9C39F2862A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24BED6B0-4868-46B0-8000-EE35140E9974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24BED6B0-4868-46B0-8000-EE35140E9974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24BED6B0-4868-46B0-8000-EE35140E9974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24BED6B0-4868-46B0-8000-EE35140E9974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
