@@ -1,0 +1,62 @@
+﻿
+@page "/"
+@code{ public Question newQuestion = new Question(); }
+<h1>Create a questionaire</h1>
+
+Welcome to the questionaire builder.
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Question</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your question here" value="@stringQuestion" @oninput="(EventArgs) => {SetQuestion(EventArgs.Value.ToString());}">>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Answer</label>
+        <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter your answer here" value="@stringAnswer" @oninput="(EventArgs) => {SetAnswer(EventArgs.Value.ToString());}">
+    </div>
+
+</form>
+<button @onclick="UpdateQuestion" class="btn btn-primary">add question</button>
+<button @onclick="UpdateAnswer" class="btn btn-primary">add answer</button>
+
+
+<h1>@newQuestion.question</h1>
+<h1>@newQuestion.answers</h1>
+<h1>test</h1>
+@code{
+
+
+    string stringQuestion = "";
+    string stringAnswer = "";
+
+    string output = "";
+
+    private void SetQuestion(string Value)
+    {
+        stringQuestion = Value;
+
+    }
+
+    private void SetAnswer(string Value)
+    {
+        stringAnswer = Value;
+    }
+    private void UpdateQuestion(MouseEventArgs e)
+    {
+        newQuestion.question = stringQuestion;
+
+
+    }
+
+    private void UpdateAnswer(MouseEventArgs e)
+    {
+        newQuestion.addAnswerToList(stringAnswer);
+
+    }
+}
+
+
+
+
+
+
+
