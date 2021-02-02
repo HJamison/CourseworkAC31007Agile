@@ -41,8 +41,17 @@
         </nav>
     </header>
 
-
-    @RenderBody();
+    @using Microsoft.AspNetCore.Http
+    @using System
+    @if (Context.Session.GetString("Permission") == "Lab Manager")
+    {
+        @RenderBody();
+    }
+    else
+    {
+        <h1 style="color: red">Access Denied</h1>
+        <!--@RenderBody() -->
+    }
 
     <footer class="border-top footer text-muted">
         <div class="container">
