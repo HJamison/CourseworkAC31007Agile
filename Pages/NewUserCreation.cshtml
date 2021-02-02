@@ -1,0 +1,93 @@
+﻿@page
+@model CourseworkAC31007Agile.Pages.NewUserModel
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@using Microsoft.AspNetCore.Http
+
+@{
+    Layout = "_LayoutNewUser";
+}
+@{
+    if (HttpMethods.IsPost(Request.Method))
+    {
+        var fname = Request.Form["fname"];
+        var surname = Request.Form["surname"];
+        var role = Request.Form["role"];
+        var username = Request.Form["username"];
+        var pass1 = Request.Form["pass1"];
+
+        var user = new Users();
+        user.Username = username;
+        user.Password = pass1;
+        user.Name = fname + " " + surname;
+        user.PermissionLevel = role;
+
+        using (var db = new DatabaseContext())
+        {
+            var inserting = db.Users.Add(user);
+        }
+    }
+}
+<style>
+    .profile-form {
+        width: 1100px;
+        margin: 25px auto;
+    }
+
+        .profile-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 30px;
+        }
+
+        .profile-form h2 {
+            margin: 0 0 15px;
+        }
+
+    .profile-control, .btn {
+        min-height: 38px;
+    }
+
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 20px;
+        width: 150px;
+    }
+</style>
+<body>
+    <form method="post">
+        <fieldset>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" id="fname" name="fname" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Surname</td>
+                    <td><input type="text" id="surname" name="surname" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Roles</td>
+                    <td><input type="text" id="role" name="role" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" id="usernmae" name="username" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" id="pass1" name="pass1" minlength="8" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" id="pass2" name="pass2" minlength="8" required="required"></td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+</body>
