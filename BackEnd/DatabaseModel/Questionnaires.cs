@@ -16,6 +16,7 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
         public string Title { get; set; }
         public int? Research { get; set; }
         public string Invitation { get; set; }
+        public bool HasIdInputQuestion { get; set; }
 
         public virtual ResearchProjects ResearchNavigation { get; set; }
         public virtual ICollection<Answers> Answers { get; set; }
