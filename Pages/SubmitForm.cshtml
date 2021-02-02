@@ -1,0 +1,29 @@
+﻿@page
+@using Microsoft.AspNetCore.Http
+@model CourseworkAC31007Agile.Pages.SubmitForm
+
+@{
+  Layout = null;}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<div>
+  @{
+    if (HttpMethods.IsPost(Request.Method))
+    {
+      <div>@Json.Serialize(Request.Form)</div>
+      <h1>Thank you for submitting the form!</h1>
+    }
+    else
+    {
+      <h1>Something's wrong</h1>
+    }
+  }
+</div>
+</body>
+</html>
