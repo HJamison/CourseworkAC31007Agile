@@ -1,5 +1,5 @@
 ﻿@page
-@model CourseworkAC31007Agile.Pages.shareQuestionnaireModel
+@model SelectList
 @{
 }
 @{
@@ -41,24 +41,30 @@
 </style>
 
 <div class="profile-form">
-    <form>
+    <form method="post" asp-controller="Home" asp-action="Index">
         <div class="container">
+            <!--Adapted from https://www.aspsnippets.com/Articles/Populating-DropDownList-inside-Razor-Pages-in-ASPNet-Core-MVC.aspx -->
             <div class="profile-form">
-                @*<div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Questionnaire to Share
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Questionnaire 1</a>
-                <a class="dropdown-item" href="#">Questionnaire 2</a>
-                <a class="dropdown-item" href="#">Questionnaire 3</a>
-            </div>
-        </div>
-
-        <a href="#" type="button" class="btn btn-primary btn-lg btn-block">Share by Email </a>*@
-                <!-- Taken https://www.tutorialspoint.com/html/html_email_links.htm#:~:text=HTML%20tag%20provides%20you,mailto%20instead%20of%20using%20http.&text=This%20code%20will%20generate%20the,can%20use%20to%20send%20email. from -->
-
+                <select id="Id" name="title" asp-items="Model">
+                    <option value="0">Please select</option>
+                </select>
+                <input type="hidden" name="title" />
+                <input type="submit" value="Submit" />
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script type="text/javascript">
+                    $("body").on("change", "#Id", function () {
+                        $("input[name=title]").val($(this).find("option:selected").text());
+                    });
+                </script>
+                @if (ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+            $(function () {
+                alert("@ViewBag.Message");
+            });
+                    </script>
+                }
+                <!-- Taken from https://www.tutorialspoint.com/html/html_email_links.htm#:~:text=HTML%20tag%20provides%20you,mailto%20instead%20of%20using%20http.&text=This%20code%20will%20generate%20the,can%20use%20to%20send%20email -->
                 <a href="mailto:? &subject=Questionnaire&body=Please fill in my questionnaire at http://ac31007-coursework-dev-as.azurewebsites.net/DatabaseTest" class="btn btn-primary btn-lg">Share by Email</a>
             </div>
         </div>
