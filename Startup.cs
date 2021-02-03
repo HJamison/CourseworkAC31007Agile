@@ -27,7 +27,7 @@ namespace CourseworkAC31007Agile
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+                options.IdleTimeout = TimeSpan.FromMinutes(60);//You can set Time   
             });
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
