@@ -1,0 +1,61 @@
+﻿@page
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@model CourseworkAC31007Agile.Pages.ExportQuestionnairies
+
+@{
+  Layout = "Shared/_LayoutCoResearcher";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Export data</title>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form>
+        <div class="form-group">
+          <label for="questionnaireChooser">Choose a questionnaire to export. You can select more than one with ctrl or shift.</label>
+          <select class="selectpicker form-control" id="questionnaireChooser" data-live-search="true" multiple>
+            @{
+              using var db = new DatabaseContext();
+              var questionnaires = db.Questionnaires.ToList();
+              foreach (var questionnaire in questionnaires)
+              {
+                <option title="@questionnaire.Id" data-tokens="@questionnaire.Title" data-subtext="@questionnaire.Title" value="@questionnaire.Id">@questionnaire.Id</option>
+              }
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="results">Choosen questionnaires</label>
+          <textarea class="form-control" id="results" disabled></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+<!-- For listing the selected items in the textarea -->
+const questionnaireChooser = document.getElementById("questionnaireChooser");
+const results = document.getElementById("results")
+
+questionnaireChooser.addEventListener("change", onSelectChange);
+onSelectChange(); // Update the text area at the beginning
+
+function onSelectChange() {
+  let selected = Array.from(questionnaireChooser.options)
+        .filter(option => option.selected)
+        .map(option => option.getAttribute("data-subtext"));
+  results.textContent = selected.join("\n");
+}
+</script>
+</body>
+</html>
