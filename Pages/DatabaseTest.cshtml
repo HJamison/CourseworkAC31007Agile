@@ -39,8 +39,8 @@
               if (questionnaire.HasIdInputQuestion)
               {
                 <div class="form-group">
-                  <h5 for="participantId">Do you have a participant ID? If not, please leave this field blank</h5>
-                  <input class="form-control" type="text" id="participantId" name="participantId">
+                  <h5 for="participant-id">Do you have a participant ID? If not, please leave this field blank</h5>
+                  <input class="form-control" type="text" id="participant-id" name="participant-id">
                 </div>
               }
               
@@ -48,7 +48,7 @@
                 
               foreach (var question in questions)
               {
-                <div class="form-group">
+                <div class="form-group" id="@question.Id">
                   @{
                     var choices = question.Choices == null ? new string[0] : question.Choices.Split(",");
                     if (!question.OrderInSus.HasValue) // Display the question only if it's not part of a System Usability Scale
@@ -61,8 +61,8 @@
                         foreach (var choice in choices)
                         {
                           <div class="form-check">
-                            <input class="form-check-input inl" type="checkbox" id="@(question.Id).@choice" name="@(question.Id)" value="@choice">
-                            <label class="form-check-label" for="@(question.Id).@(choice)">@choice</label>
+                            <input class="form-check-input inl" type="checkbox" id="@(question.Id)-@(choice)" name="@(question.Id)-@(choice)" value="@choice">
+                            <label class="form-check-label" for="@(question.Id)-@(choice)">@choice</label>
                           </div>
                         }
                         break;
@@ -72,24 +72,24 @@
                           foreach (var choice in choices)
                           {
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" id="@(question.Id).@choice" name="@question.Id" value="@choice">
-                              <label class="form-check-label" for="@(question.Id).@choice">@choice</label>
+                              <input class="form-check-input" type="radio" id="@(question.Id)-@(choice)" name="@(question.Id)-@(choice)" value="@choice">
+                              <label class="form-check-label" for="@(question.Id)-@(choice)">@choice</label>
                             </div>
                           }
                         }
                         break;
                       case "multi-line-text":
-                        @:<textarea class="form-control" id="@question.Id" name="@question.Id.@choices" rows="4" cols="50"></textarea>
+                        @:<textarea class="form-control" id="@(question.Id)" name="@(question.Id)" rows="4" cols="50"></textarea>
                         break;
                       case "single-line-text":
-                        @:<input class="form-control" type="text" id="@question.Id.@choices" name="@question.Id">
+                        @:<input class="form-control" type="text" id="@(question.Id)" name="@(question.Id)">
                         break;
                       case "system-usability-scale":
                         var header = question.Choices == null ? new string[0] : question.Choices.Split(",");
                         // Filter out the questions for this group
                         var subQuestions = susQuestions.FindAll(q => q.SusId == question.Id);
                         // Display them in a table
-                        <table class="table table-bordered table-striped" id="@(question.SusId)_SUS">
+                        <table class="table table-bordered table-striped" id="@(question.Id)-table">
                           <thead>
                           <tr>
                             <th></th>
@@ -111,8 +111,8 @@
                                   foreach (var choice in subQuestion.Choices.Split(",")) // Display the choices row by row
                                   {
                                     <td>
-                                      <input type="radio" id="@(question.Id).@choice" name="@question.Id" value="@choice">
-                                      <label class="form-check-label">@choice</label>
+                                      <input type="radio" id="@(question.Id)-@(choice)" name="@(question.Id)-@(choice)" value="@choice">
+                                      <label class="form-check-label" for="@(question.Id)-@(choice)">@choice</label>
                                     </td>
                                   }
                                 }
