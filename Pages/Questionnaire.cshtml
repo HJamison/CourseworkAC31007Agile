@@ -111,8 +111,8 @@
                                   foreach (var choice in subQuestion.Choices.Split(",")) // Display the choices row by row
                                   {
                                     <td>
-                                      <input type="radio" id="@(question.Id)-@(choice)" name="@(question.Id)-@(choice)" value="@choice">
-                                      <label class="form-check-label" for="@(question.Id)-@(choice)">@choice</label>
+                                      <input type="radio" id="@(subQuestion.Id)-@(choice)" name="@(subQuestion.Id)-@(choice)" value="@choice">
+                                      <label class="form-check-label" for="@(subQuestion.Id)-@(choice)">@choice</label>
                                     </td>
                                   }
                                 }
