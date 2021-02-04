@@ -1,4 +1,8 @@
 ﻿@page
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@using System.Text.Encodings.Web
+@using System.Reflection.Metadata
+@using Microsoft.AspNetCore.Http
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -8,7 +12,7 @@
 }
 
 @*Reference code for a basic login form
-https://www.tutorialrepublic.com/codelab.php?topic=bootstrap-3&file=simple-login-form*@
+    https://www.tutorialrepublic.com/codelab.php?topic=bootstrap-3&file=simple-login-form*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +37,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap-3&file=simple-login
                 border-radius: 30px;
             }
 
-<div class="text-center"> .login-form h2 {
+            .login-form h2 {
                 margin: 0 0 15px;
             }
 
@@ -50,13 +54,13 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap-3&file=simple-login
 </head>
 <body>
     <div class="login-form">
-        <form>
+        <form method="POST">
             <h2 class="text-center">Login Portal</h2>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" required="required">
+                <input type="text" class="form-control" placeholder="Username" required="required" asp-for="Username">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="required">
+                <input type="password" class="form-control" placeholder="Password" required="required" asp-for="Password">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
@@ -65,6 +69,3 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap-3&file=simple-login
     </div>
 </body>
 </html>
-    <h1 class="display-4">Welcome You smell of poo</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
