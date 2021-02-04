@@ -24,6 +24,7 @@
         using (var db = new DatabaseContext())
         {
             var inserting = db.Users.Add(user);
+            db.SaveChanges();
         }
     }
 }
