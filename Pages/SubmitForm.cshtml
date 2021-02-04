@@ -64,20 +64,6 @@
         transaction.Commit();
           
         <h1>Thank you for submitting the form!</h1>
-
-        <h5>Participants</h5>
-        <p>
-          @foreach (var p in db.Participants)
-          {
-            <text>@p.Id, </text> 
-          }
-        </p>
-        
-        <h5>Answers</h5>
-        foreach (var ans in db.Answers)
-        {
-          <p>@ans.ToString()</p>
-        }
       }
       catch (Exception e)
       {
