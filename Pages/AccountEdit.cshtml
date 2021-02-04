@@ -1,0 +1,76 @@
+﻿@page
+@using CourseworkAC31007Agile.Pages
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+@inject IHttpContextAccessor HttpContextAccessor
+@model CourseworkAC31007Agile.Pages.AccountEditModel
+@{
+}
+@{
+    Layout = "_LayoutAccountActions";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .profile-form {
+        width: 1100px;
+        margin: 25px auto;
+    }
+
+        .profile-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 30px;
+        }
+
+        .profile-form h2 {
+            margin: 0 0 15px;
+        }
+
+    .profile-control, .btn {
+        min-height: 38px;
+    }
+
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 20px;
+        width: 150px;
+    }
+
+    .inputbox {
+        max-width: 400px;
+    }
+</style>
+
+<div class="profile-form">
+    <form method="post">
+        <div class="container">
+            <div class="profile-form">
+                <h2 class="text-center">Add Account:</h2>
+                <label>Username: </label>
+                <input type="text" required="required" class="form-control inputbox" disabled value="@HttpContextAccessor.HttpContext.Session.GetString("targetUsername")" asp-for="Username">
+                <br />
+                <label>Password: </label>
+                <input type="password" required="required" class="form-control inputbox" placeholder="password" asp-for="Password">
+                <br />
+                <label>Password Confirm: </label>
+                <input type="password" required="required" class="form-control inputbox" placeholder="password" asp-for="PasswordConfirm">
+                <br />
+                <label>Name: </label>
+                <input type="text" required="required" class="form-control inputbox" value="@HttpContextAccessor.HttpContext.Session.GetString("targetName")" asp-for="Name">
+                <br />
+                <label>Position: </label>
+                <input type="text" required="required" class="form-control inputbox" value="@HttpContextAccessor.HttpContext.Session.GetString("targetPermission")" asp-for="Position">
+                <br />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Update</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
