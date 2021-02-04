@@ -61,7 +61,15 @@ namespace CourseworkAC31007Agile.Pages
 
             if (data == "accountDel")
             {
-
+                if (this.TargetUsername == null)
+                {
+                    RedirectToPage("AccountManager");
+                }
+                else
+                {
+                    HttpContext.Session.SetString("targetUsername", this.TargetUsername);
+                    return RedirectToPage("RemoveAccount");
+                }
             }
             if(data == "accountEdit")
             {
