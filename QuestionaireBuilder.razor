@@ -1,4 +1,5 @@
 ﻿@using System.Text.Json
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
 
 @page "/"
 
@@ -204,10 +205,41 @@ Welcome to the questionaire builder.
 {
         public void SaveQuestionaire()
         {
-            //https://stackoverflow.com/questions/1299410/can-i-save-an-object-in-a-sql-server-database
-            //https://www.syncfusion.com/faq/blazor/general/how-do-i-serialize-and-deserialize-json-in-a-blazor-application
+            using (var db = new DatabaseContext())
+            {
+                using var transaction = db.Database.BeginTransaction();
+                
+                //https://stackoverflow.com/questions/1299410/can-i-save-an-object-in-a-sql-server-database
+                //https://www.syncfusion.com/faq/blazor/general/how-do-i-serialize-and-deserialize-json-in-a-blazor-application
+                string serializedString = System.Text.Json.JsonSerializer.Serialize(newQuestionaire);
+                
+                Questionnaires dbQuestionnaire = new Questionnaires()
+                {
+                    Title = newQuestionaire.questionaireName,
+                    HasIdInputQuestion = false,
+                    Json = serializedString
+                };
+                db.Questionnaires.Add(dbQuestionnaire);
+                db.SaveChanges();
 
-            string serializedString = System.Text.Json.JsonSerializer.Serialize(newQuestionaire);
+                short order = 1;
+                foreach (var question in newQuestionaire.questions)
+                {
+                    Questions dbQuestion = new Questions()
+                    {
+                        Question = question.questionText,
+                        Type = "radio-button",
+                        Questionnaire = dbQuestionnaire.Id,
+                        Choices = string.Join(",", question.questionAnswer.Select(a => a.AnswerText)),
+                        OrderInQuestionnaire = order
+                    };
+                    db.Questions.Add(dbQuestion);
+                    db.SaveChanges();
+                    order++;
+                }
+                transaction.Commit();
+            }
+            
             //need to pass this string into the database will ask miklos for help, will need a new feild in the table to store this if it works
             // to de serailize fromt the db do this  Questionaire qCopy = System.Text.Json.JsonSerializer.Deserialize<Questionaire>(serializedString);
 

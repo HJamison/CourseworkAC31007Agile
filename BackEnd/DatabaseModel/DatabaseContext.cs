@@ -176,6 +176,8 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
                     .HasColumnName("invitation")
                     .HasColumnType("text");
 
+                entity.Property(e => e.Json).HasColumnName("json");
+
                 entity.Property(e => e.Research).HasColumnName("research");
 
                 entity.Property(e => e.Title)
