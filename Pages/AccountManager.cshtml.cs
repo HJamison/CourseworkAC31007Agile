@@ -28,5 +28,20 @@ namespace CourseworkAC31007Agile.Pages
                 }
             }
         }
+
+        public void OnPost()
+        {
+            
+        }
+
+        public ActionResult OnPostAddAccount(string data)
+        {
+            if(data == "accountAdd")
+            {
+                return RedirectToPage("AddAccount");
+            }
+            return RedirectToPage("AccountManager");
+        }
+
     }
 }

@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.AspNetCore.Session;
 @using CourseworkAC31007Agile.BackEnd.DatabaseModel;
+@using Microsoft.AspNetCore.Components
 @model CourseworkAC31007Agile.Pages.AccountManagerModel
 @{
 }
@@ -42,44 +43,41 @@
 </style>
 
 <div class="container w-75 align-content-center mt-1">
-    <table class="table table-striped border">
-        <tr class="table-secondary">
-            <th>
-                <label>Name</label>
-            </th>
-            <th>
-                <label>Username</label>
-            </th>
-            <th>
-                <label>Permission</label>
-            </th>
-            <th>
-
-            </th>
-        </tr>
-        @using (var db = new DatabaseContext())
-        {
-            var users = new List<Users>();
-            users = db.Users.ToList();
-
-            foreach (var user in users)
+    <form method="post">
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    <label>Name</label>
+                </th>
+                <th>
+                    <label>Username</label>
+                </th>
+                <th>
+                    <label>Permission</label>
+                </th>
+            </tr>
+            @using (var db = new DatabaseContext())
             {
-                <tr>
-                    <td>
-                        @user.Name;
-                    </td>
-                    <td>
-                        @user.Username;
-                    </td>
-                    <td>
-                        @user.PermissionLevel;
-                    </td>
-                    <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                        <a class="btn btn-success btn-sm text-white">Edit</a>
-                    </td>
-                </tr>
+                var users = new List<Users>();
+                users = db.Users.ToList();
+                foreach (var user in users)
+                {
+                    <tr>
+                        <td>
+                            @user.Name;
+                        </td>
+                        <td>
+                            @user.Username;
+                        </td>
+                        <td>
+                            @user.PermissionLevel;
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
+        </table>
+    </form>
+    <form method="POST">
+        <button type="submit" class="btn btn-outline-success" asp-route-data="accountAdd" asp-page-handler="AddAccount">Add Account</button>
+    </form>
 </div>
