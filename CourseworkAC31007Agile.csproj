@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Content Include="BackEnd\DatabaseModel\POCO_generate_command.txt" />
+    <Content Remove="Pages\DownloadReport.cshtml" />
   </ItemGroup>
 
 </Project>
