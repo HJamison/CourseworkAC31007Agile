@@ -1,4 +1,8 @@
 ﻿@page
+@using CourseworkAC31007Agile.Pages
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel;
 @model CourseworkAC31007Agile.Pages.QuestionnaireManagmentModel
 @{
 }
@@ -41,32 +45,39 @@
 
 <div class="profile-form">
     <form>
-        <div class="container">
-            <div class="profile-form">
-                <div class="container">
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <a href="createQuestionnaire" class="btn btn-primary btn-lg">Create Questionnaire</a>
-                            </div>
-                            <div class="col-sm-4">
-                                <a href="exportQuestionnaireResults" class="btn btn-primary btn-lg">Export Questionnaire</a>
-                            </div>
-                            <div class="col-sm-4">
-                                <a href="shareQuestionnaire" class="btn btn-primary btn-lg">Share Questionnaire</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="container">
-                        <component type="typeof(ShowQuestionaires)" render-mode="Server" />
-                        <script src="_framework/blazor.server.js"></script>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    <label>Title</label>
+                </th>
+                <th>
+                    <label>Id</label>
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            @using (var db = new DatabaseContext())
+            {
+                var questionnaireList = new List<Questionnaires>();
+                questionnaireList = db.Questionnaires.ToList();
+
+                foreach (var questionnaire in questionnaireList)
+                {
+                    <tr>
+                        <td>
+                            @questionnaire.Title;
+                        </td>
+                        <td>
+                            @questionnaire.Id;
+                        </td>
+                        <td>
+                            <a href="http://ac31007-coursework-dev-as.azurewebsites.net/questionnaire?formId=@questionnaire.Id" class="btn btn-success btn-sm text-white">View</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
     </form>
 </div>
 
