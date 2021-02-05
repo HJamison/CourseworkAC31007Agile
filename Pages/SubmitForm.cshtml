@@ -1,0 +1,83 @@
+﻿@page
+@using Microsoft.AspNetCore.Http
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@using Answers = CourseworkAC31007Agile.BackEnd.DatabaseModel.Answers
+@model CourseworkAC31007Agile.Pages.SubmitForm
+
+@{
+  Layout = null;}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Form Submittion</title>
+</head>
+<body>
+<div>
+  @{
+    if (HttpMethods.IsPost(Request.Method))
+    {
+      await using var db = new DatabaseContext();
+      
+      int participantId;
+      // Check if there's a need to generate a participant ID
+      if (Request.Form.All(f => f.Key != "participant-id"))
+      {
+        participantId = DatabaseHelperMethods.CreateNewParticipant();
+      }
+      else
+      {
+        // Read it
+        participantId = int.Parse(Request.Form["participant-id"]);
+        // If the participant id is incorrect, abort
+        if (!db.Participants.Any(p => p.Id == participantId))
+        {
+          <h1>Invalid participant ID</h1>
+          return;
+        }
+      }
+
+      // Save each answer
+      using var transaction = db.Database.BeginTransaction();
+      try
+      {
+        foreach (var (key, value) in Request.Form)
+        {
+          // Ignore these keys
+          if (key == "__RequestVerificationToken" || key == "participant-id")
+          {
+            continue;
+          }
+
+          var questionId = int.Parse(key.Split("-")[0]);
+          var answer = new Answers
+          {
+            Answer = value,
+            Participant = participantId,
+            Question = questionId,
+            Questionnaire = int.Parse(Request.Query["questionnaireId"])
+          };
+          db.Answers.Add(answer);
+          db.SaveChanges();
+        }
+        
+        transaction.Commit();
+          
+        <h1>Thank you for submitting the form!</h1>
+      }
+      catch (Exception e)
+      {
+        transaction.Rollback();
+        <p>Error while saving the answers:</p>
+        <p>@e.Message</p>
+      }
+    }
+    else
+    {
+      <h1>There's no form to save</h1>
+    }
+  }
+</div>
+</body>
+</html>

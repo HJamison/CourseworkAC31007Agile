@@ -1,5 +1,9 @@
 ﻿@page
-@model CourseworkAC31007Agile.Pages.shareQuestionnaireModel
+@using CourseworkAC31007Agile.Pages
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel;
+@model CourseworkAC31007Agile.Pages.ShareQuestionnaireModel
 @{
 }
 @{
@@ -41,28 +45,40 @@
 </style>
 
 <div class="profile-form">
-    <form>
-        <div class="container">
-            <div class="profile-form">
-                @*<div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Questionnaire to Share
-            </a>
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+            <th>
+                <label>Title</label>
+            </th>
+            <th>
+                <label>Id</label>
+            </th>
+            <th>
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Questionnaire 1</a>
-                <a class="dropdown-item" href="#">Questionnaire 2</a>
-                <a class="dropdown-item" href="#">Questionnaire 3</a>
-            </div>
-        </div>
+            </th>
+        </tr>
+        @using (var db = new DatabaseContext())
+        {
+            var questionnaireList = new List<Questionnaires>();
+            questionnaireList = db.Questionnaires.ToList();
 
-        <a href="#" type="button" class="btn btn-primary btn-lg btn-block">Share by Email </a>*@
-                <!-- Taken https://www.tutorialspoint.com/html/html_email_links.htm#:~:text=HTML%20tag%20provides%20you,mailto%20instead%20of%20using%20http.&text=This%20code%20will%20generate%20the,can%20use%20to%20send%20email. from -->
-
-                <a href="mailto:? &subject=Questionnaire&body=Please fill in my questionnaire at http://ac31007-coursework-dev-as.azurewebsites.net/DatabaseTest" class="btn btn-primary btn-lg">Share by Email</a>
-            </div>
-        </div>
-    </form>
+            foreach (var questionnaire in questionnaireList)
+            {
+                <tr>
+                    <td>
+                        @questionnaire.Title;
+                    </td>
+                    <td>
+                        @questionnaire.Id;
+                    </td>
+                    <td>
+                        <a href="mailto:? &subject=Questionnaire&body=Please fill in my questionnaire at http://ac31007-coursework-dev-as.azurewebsites.net/DatabaseTest" class="btn btn-success btn-sm text-white">Share</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
 </div>
+
 
 

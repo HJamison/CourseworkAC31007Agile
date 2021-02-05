@@ -39,6 +39,7 @@
         border-radius: 20px;
         width: 150px;
     }
+
 </style>
 
 <div class="container w-75 align-content-center mt-1">
@@ -77,6 +78,11 @@
         </table>
     </form>
     <form method="POST">
-        <button type="submit" class="btn btn-outline-success" asp-route-data="accountAdd" asp-page-handler="AddAccount">Add Account</button>
+        <button type="submit" class="btn btn-outline-success mb-1" asp-route-data="accountAdd" asp-page-handler="AccountAction">Add Account</button>
+        <br />
+        <input type="text" class="form-control" placeholder="Target Username" asp-for="TargetUsername">
+        <br />
+        <button type="submit" class="btn btn-outline-success mb-1" asp-route-data="accountEdit" asp-page-handler="AccountAction">Edit Selected</button>
+        <button type="submit" class="btn btn-outline-warning mb-1" asp-route-data="accountDel" asp-page-handler="AccountAction">Delete Selected</button>
     </form>
 </div>

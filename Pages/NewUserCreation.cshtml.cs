@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CourseworkAC31007Agile.Pages
 {
-    public class QuestionnaireManagmentModel : PageModel
+    public class NewUserModel : PageModel
     {
         public void OnGet()
         {

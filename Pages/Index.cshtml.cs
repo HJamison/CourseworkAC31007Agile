@@ -74,9 +74,9 @@ namespace CourseworkAC31007Agile.Pages
                     switch (permission)
                     {
                         case "Principal Researcher":
-                            return RedirectToPage("index");
+                            return RedirectToPage("PrincipalResearcherAccount");
                         case "Co-Researcher":
-                            return RedirectToPage("index");
+                            return RedirectToPage("Co-researcher");
                         case "Lab Manager":
                             return RedirectToPage("LabManagerAccount");
                         default:

@@ -34,16 +34,27 @@
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/PrincipalResearcherAccessability">Co-researcher Accessability</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/PrincipalResearcherExperiments">Access own experiments</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/questionnaireManagment">Questionnaire Dahboard</a>
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/EthicsPage">Ethics Statement</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/Logout">Logout</a>
                 </div>
             </div>
         </nav>
     </header>
-	<footer class="border-top footer text-muted">
-		<div class="container">
-			&copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
-		</div>
-	</footer>
-	@RenderBody()
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    @using Microsoft.AspNetCore.Http
+    @using System
+    @if (Context.Session.GetString("Permission") == "Principal Researcher")
+    {
+        @RenderBody();
+    }
+    else
+    {
+        <h1 style="color: red">Access Denied</h1>
+        <!--@RenderBody() -->
+    }
 </body>
 </html>
