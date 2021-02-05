@@ -130,9 +130,12 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         }
-        catch (ArgumentNullException e) // If a corresponding questionnaire haven't been found in the database
+        catch (Exception e) // If a corresponding questionnaire haven't been found in the database
         {
-          @:<p class="row">The linked questionnaire does not exist</p>
+          if (e is ArgumentNullException || e is InvalidOperationException)
+          {
+            @:<p class="row">The linked questionnaire does not exist</p>
+          }
         }
       }
     }
