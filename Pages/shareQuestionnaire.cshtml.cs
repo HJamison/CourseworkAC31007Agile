@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
 namespace CourseworkAC31007Agile.Pages
 {
-    public class shareQuestionnaireModel : PageModel
+    public class ShareQuestionnaireModel : PageModel
     {
         public void OnGet()
         {
