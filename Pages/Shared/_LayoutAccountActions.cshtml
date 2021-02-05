@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         body {
             background-color: transparent;
@@ -27,22 +29,29 @@
 <body>
     <header>
         <nav class="navbar navbar-expand navbar-custom">
+
+            @*<a class="navbar-brand navbar-text" href="co-researcher">Project</a>*@
             <img href="co-researcher" src="/images/uniLogo.png" alt="University of Dundee" />
             <div class="collapse navbar-collapse" .id="navbarAltMarkup">
                 <div class="navbar-nav ml-5">
-                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/Index">Home</a>
-                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/questionnaireManagment">Questionnaire Management</a>
-                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/createQuestionnaire">Create Questionnaire</a>
-                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/exportQuestionnaireResults">Export questionnaire</a>
-                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/shareQuestionnaire">Share Questionnaire</a>
-                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/EthicsPage">Ethics Statement</a>
+                    <a class="nav-item nav-link navbar-text" asp-area="" asp-page="/AccountManager">Back</a>
                 </div>
             </div>
         </nav>
     </header>
 
-
-    @RenderBody();
+    @using Microsoft.AspNetCore.Http
+    @using System
+    @*Additional account types can be added to permissions here*@
+    @if (Context.Session.GetString("Permission") == "Lab Manager")
+    {
+        @RenderBody();
+    }
+    else
+    {
+        <h1 style="color: red">Access Denied</h1>
+        <!--@RenderBody() -->
+    }
 
     <footer class="border-top footer text-muted">
         <div class="container">

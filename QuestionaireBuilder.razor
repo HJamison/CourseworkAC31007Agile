@@ -1,0 +1,252 @@
+﻿@using System.Text.Json
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+
+@page "/"
+
+@code{
+    // public List<Question> qList = new List<Question>();
+    public Questionaire newQuestionaire = new Questionaire();
+    public Question tst = new Question();
+    public bool AnsFilled = false;
+
+
+}
+<h1>Create a questionaire</h1>
+
+Welcome to the questionaire builder.
+@if (newQuestionaire.questionaireName == null)
+{
+    <form>
+        <div class="form-group">
+            <b><label for="exampleFormControlInput1">Questionaire Name</label></b>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter the name of the questionaire here" value="@questionaireName" @oninput="(EventArgs) => { SetQuestionaireName(EventArgs.Value.ToString()); }">
+        </div>
+        <button type="button" @onclick="(EventArgs) => { newQuestionaire.questionaireName = questionaireName; }" class="btn btn-primary">Add</button>
+
+
+    </form>
+}
+@code
+{
+    string questionaireName = " ";
+    public void SetQuestionaireName(string Value)
+    {
+        questionaireName = Value;
+
+    }
+
+}
+@if (newQuestionaire.questionaireName != null)
+{
+    <h1>Questionaire name :@newQuestionaire.questionaireName</h1>
+    <form>
+        <div class="form-group">
+            <b><label for="exampleFormControlInput1">@duplicateQuestionError</label></b>
+            <b><label for="exampleFormControlInput1">Question</label></b>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your question here" value="@stringQuestion" @oninput="(EventArgs) => { SetQuestion(EventArgs.Value.ToString()); }">
+        </div>
+        <button type="button" @onclick="UpdateQuestion" class="btn btn-primary">Add</button>
+
+
+    </form>
+}
+@code{
+
+    string stringQuestion = "";
+
+    public void SetQuestion(string Value)
+    {
+        stringQuestion = Value;
+
+    }
+
+    public void UpdateQuestion()
+    {
+        bool questionExists = false;
+        removeQuestionErrorMessage();
+
+        //--- CHECKS IF QUESTION ALREADY EXISTS ---
+        //#TODO add an error box for when the question already exists (something like this? : https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/handle-errors?view=aspnetcore-5.0)
+        if (newQuestionaire.questions != null)
+        {
+            for (int i = 0; i < newQuestionaire.questions.Count(); i++)
+            {
+                string currentQuestionTemp = newQuestionaire.questions[i].questionText;
+                if (currentQuestionTemp == stringQuestion)
+                {
+                    questionExists = true;
+                }
+
+            }
+            if (questionExists == false && !String.IsNullOrEmpty(stringQuestion))
+            {
+                newQuestionaire.questions.Add(new Question(stringQuestion));
+            }
+            else
+            {
+                errorQuestionMessage();
+            }
+        }
+    }
+
+}
+
+
+@if (newQuestionaire.questions != null)
+{
+    @foreach (Question tmp in newQuestionaire.questions)
+    {
+
+        <form>
+            <h1> @tmp.questionText</h1>
+            @{ var tmpQ = tmp;
+                int indexQ = newQuestionaire.questions.IndexOf(tmpQ);}
+            <div class="form-group">
+                <b><label for="exampleFormControlInput1">@duplicateAnswerError</label></b>
+                <b><label for="exampleFormControlInput1">Answer</label></b>
+                <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter your answer here" value="@stringAnswer" @oninput="(EventArgs) => { SetAnswer(EventArgs.Value.ToString()); }">
+                <small id="answerHelp" class="form-text text-muted">Enter your answer here:)</small>
+                <button type="button" @onclick="(EventArgs) =>
+                    {
+                    // --- CHECKS IF ANSWER ALREADY EXISTS ---
+                    //#TODO add an error box for when the question already exists
+                    if (tmp.questionAnswer != null ) {
+                    removeAnswerErrorMessage();
+                    bool answerExists = false;
+                    for (int i = 0; i < tmp.questionAnswer.Count() ; i++)
+                    {
+                    string currentAnswerTemp = tmp.questionAnswer[i].AnswerText;
+                    if (currentAnswerTemp == stringAnswer)
+                    {
+                    answerExists = true;
+                    }
+
+                    }
+                    if (answerExists == false && !String.IsNullOrEmpty(stringAnswer))
+                    {
+                    tmp.questionAnswer.Add(new Answers(stringAnswer, false));
+                    }
+                    else {
+                    errorAnswerMessage();
+                    }
+
+                    }
+
+                    }" class="btn btn-primary">
+                    Add
+                </button>
+                <button type="button" @onclick="(EventArgs) => { newQuestionaire.questions.RemoveAt(indexQ); }" class="btn btn-primary">remove</button>
+            </div>
+            @code
+            {
+                string duplicateQuestionError = "";
+                string duplicateAnswerError = "";
+
+                public void errorAnswerMessage()
+                {
+                    duplicateAnswerError = "Duplicate Answer, please change";
+                }
+
+                public void errorQuestionMessage()
+                {
+                    duplicateQuestionError = "Duplicate Question, please change";
+                }
+
+                public void removeQuestionErrorMessage()
+                {
+                    duplicateQuestionError = "";
+                }
+
+                public void removeAnswerErrorMessage()
+                {
+                    duplicateAnswerError = "";
+                }
+
+                string stringAnswer = "";
+
+                private void SetAnswer(string Value)
+                {
+                    stringAnswer = Value;
+                }
+
+            }
+            @foreach (Answers tmpAns in tmp.questionAnswer)
+            {
+        <div class="card w-75">
+            @{ var ansTxt = tmpAns;
+                int index = tmp.questionAnswer.IndexOf(ansTxt);
+            }
+            @{AnsFilled = true;}
+            <div class="card-body">
+                <p class="card-text">@tmpAns.AnswerText</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" @bind="@tmpAns.Correct" />
+                    @code{ bool checkedValue = false; }
+                    @{ tmp.questionAnswer[index].Correct = checkedValue; }
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Answer correct?
+                    </label>
+                </div>
+
+                <button type="button" @onclick="(EventArgs) => { tmp.questionAnswer.RemoveAt(index); }" class="btn btn-primary">remove</button>
+            </div>
+        </div>
+            }
+        </form>
+
+
+
+    }
+    @if (AnsFilled == true)
+    {
+    <button type="button" @onclick="SaveQuestionaire" class="btn btn-primary btn-lg">Submit Questionaire</button>
+    @code
+{
+        public void SaveQuestionaire()
+        {
+            using (var db = new DatabaseContext())
+            {
+                using var transaction = db.Database.BeginTransaction();
+                
+                //https://stackoverflow.com/questions/1299410/can-i-save-an-object-in-a-sql-server-database
+                //https://www.syncfusion.com/faq/blazor/general/how-do-i-serialize-and-deserialize-json-in-a-blazor-application
+                string serializedString = System.Text.Json.JsonSerializer.Serialize(newQuestionaire);
+                
+                Questionnaires dbQuestionnaire = new Questionnaires()
+                {
+                    Title = newQuestionaire.questionaireName,
+                    HasIdInputQuestion = false,
+                    Json = serializedString
+                };
+                db.Questionnaires.Add(dbQuestionnaire);
+                db.SaveChanges();
+
+                short order = 1;
+                foreach (var question in newQuestionaire.questions)
+                {
+                    Questions dbQuestion = new Questions()
+                    {
+                        Question = question.questionText,
+                        Type = "radio-button",
+                        Questionnaire = dbQuestionnaire.Id,
+                        Choices = string.Join(",", question.questionAnswer.Select(a => a.AnswerText)),
+                        OrderInQuestionnaire = order
+                    };
+                    db.Questions.Add(dbQuestion);
+                    db.SaveChanges();
+                    order++;
+                }
+                transaction.Commit();
+            }
+            
+            //need to pass this string into the database will ask miklos for help, will need a new feild in the table to store this if it works
+            // to de serailize fromt the db do this  Questionaire qCopy = System.Text.Json.JsonSerializer.Deserialize<Questionaire>(serializedString);
+
+
+        }
+
+    }
+        }
+
+    }

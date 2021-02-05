@@ -1,6 +1,9 @@
 ﻿@page
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model CourseworkAC31007Agile.Pages.shareQuestionnaireModel
+@using CourseworkAC31007Agile.Pages
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel;
+@model CourseworkAC31007Agile.Pages.ShareQuestionnaireModel
 @{
 }
 @{
@@ -42,12 +45,40 @@
 </style>
 
 <div class="profile-form">
-    <EditForm method="post" asp-controller="Home" asp-action="Index">
-        <div class="container">
-                    <!-- Taken from https://www.tutorialspoint.com/html/html_email_links.htm#:~:text=HTML%20tag%20provides%20you,mailto%20instead%20of%20using%20http.&text=This%20code%20will%20generate%20the,can%20use%20to%20send%20email -->
-                <a href="mailto:? &subject=Questionnaire&body=Please fill in my questionnaire at http://ac31007-coursework-dev-as.azurewebsites.net/DatabaseTest" class="btn btn-primary btn-lg">Share by Email</a>
-        </div>
-    </EditForm>
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+            <th>
+                <label>Title</label>
+            </th>
+            <th>
+                <label>Id</label>
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        @using (var db = new DatabaseContext())
+        {
+            var questionnaireList = new List<Questionnaires>();
+            questionnaireList = db.Questionnaires.ToList();
+
+            foreach (var questionnaire in questionnaireList)
+            {
+                <tr>
+                    <td>
+                        @questionnaire.Title;
+                    </td>
+                    <td>
+                        @questionnaire.Id;
+                    </td>
+                    <td>
+                        <a href="mailto:? &subject=Questionnaire&body=Please fill in my questionnaire at http://ac31007-coursework-dev-as.azurewebsites.net/DatabaseTest" class="btn btn-success btn-sm text-white">Share</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
 </div>
+
 
 

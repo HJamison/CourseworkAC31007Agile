@@ -1,0 +1,39 @@
+﻿@page
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@using System.Text.Encodings.Web
+@using System.Reflection.Metadata
+@using Microsoft.AspNetCore.Http
+@model IndexModel
+@{
+    ViewData["Title"] = "Database Test2";
+}
+
+@{
+    Layout = "_DataTestLayout";
+}
+
+<div class="text-center">
+    <h1> Testing Database Query: </h1>
+    <p>Printing out questions</p>
+    @{
+        using (var db = new DatabaseContext())
+        {
+            var users = new List<Users>();
+            var usernames = new List<string>();
+            var passwords = new List<string>();
+            users = db.Users.ToList();
+            <p>@users.Count()</p>
+
+            foreach (var user in users)
+            {
+                usernames.Add(user.Username);
+                passwords.Add(user.Password);
+            }
+            foreach (var password in passwords)
+            {
+                <p>@password</p>
+            }
+
+        }
+    }
+</div>

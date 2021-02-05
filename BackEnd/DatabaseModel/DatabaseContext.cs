@@ -170,9 +170,13 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
                     .HasName("Questionnaires_pk")
                     .IsClustered(false);
 
+                entity.Property(e => e.HasIdInputQuestion).HasColumnName("has_id_input_question");
+
                 entity.Property(e => e.Invitation)
                     .HasColumnName("invitation")
                     .HasColumnType("text");
+
+                entity.Property(e => e.Json).HasColumnName("json");
 
                 entity.Property(e => e.Research).HasColumnName("research");
 
@@ -285,7 +289,7 @@ namespace CourseworkAC31007Agile.BackEnd.DatabaseModel
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.Username)
-                    .HasName("Usersf_pk")
+                    .HasName("Users_pk")
                     .IsClustered(false);
 
                 entity.Property(e => e.Username)

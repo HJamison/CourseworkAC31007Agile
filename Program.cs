@@ -6,14 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CourseworkAC31007Agile.BackEnd;
+
 
 namespace CourseworkAC31007Agile
 {
     public class Program
     {
+        public UserPer userPersistance = new UserPer();
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

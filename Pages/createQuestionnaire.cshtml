@@ -1,11 +1,17 @@
-﻿@page
+﻿
+@page
+@using System.Text.Json
+@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using CourseworkAC31007Agile
 @model CourseworkAC31007Agile.Pages.createQuestionnaireModel
 @{
 }
-@{
-    ViewData["Title"] = "Create Questionnaire";
-}
-
 @{
     Layout = "_questionnaireLayout";
 }
@@ -40,12 +46,8 @@
     }
 </style>
 
-<div class="profile-form">
-    <form>
-        <div class="container">
-            <div class="profile-form">
-            </div>
-
-        </div>
-    </form>
+<div class="container">
+    <component type="typeof(QuestionaireBuilder)" render-mode="Server" />
+    <script src="_framework/blazor.server.js"></script>
 </div>
+

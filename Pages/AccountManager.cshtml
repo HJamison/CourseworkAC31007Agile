@@ -1,8 +1,12 @@
 ﻿@page
+@using CourseworkAC31007Agile.Pages
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel;
+@using Microsoft.AspNetCore.Components
 @model CourseworkAC31007Agile.Pages.AccountManagerModel
 @{
 }
-
 @{
     Layout = "_LayoutLabManager";
 }
@@ -35,15 +39,50 @@
         border-radius: 20px;
         width: 150px;
     }
+
 </style>
 
-<div class="profile-form">
-    <form>
-        <div class="container">
-            <div class="profile-form">
-                <h2 class="text-center">Active Accounts:</h2>
-
-            </div>
-        </div>
+<div class="container w-75 align-content-center mt-1">
+    <form method="post">
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    <label>Name</label>
+                </th>
+                <th>
+                    <label>Username</label>
+                </th>
+                <th>
+                    <label>Permission</label>
+                </th>
+            </tr>
+            @using (var db = new DatabaseContext())
+            {
+                var users = new List<Users>();
+                users = db.Users.ToList();
+                foreach (var user in users)
+                {
+                    <tr>
+                        <td>
+                            @user.Name;
+                        </td>
+                        <td>
+                            @user.Username;
+                        </td>
+                        <td>
+                            @user.PermissionLevel;
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </form>
+    <form method="POST">
+        <button type="submit" class="btn btn-outline-success mb-1" asp-route-data="accountAdd" asp-page-handler="AccountAction">Add Account</button>
+        <br />
+        <input type="text" class="form-control" placeholder="Target Username" asp-for="TargetUsername">
+        <br />
+        <button type="submit" class="btn btn-outline-success mb-1" asp-route-data="accountEdit" asp-page-handler="AccountAction">Edit Selected</button>
+        <button type="submit" class="btn btn-outline-warning mb-1" asp-route-data="accountDel" asp-page-handler="AccountAction">Delete Selected</button>
     </form>
 </div>

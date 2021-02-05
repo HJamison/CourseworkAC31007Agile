@@ -1,0 +1,147 @@
+﻿@page
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel
+@using Microsoft.AspNetCore.Http
+@model IndexModel
+@{
+  ViewData["Title"] = "Database Test";
+}
+
+@{
+  Layout = "_DataTestLayout";
+}
+
+<div class="container">
+  @{
+    var questionnaireId = -1;
+    // If you request a form and the form has a formId, then display the corresponding questionnaire.
+    if (HttpMethods.IsGet(Request.Method) && Request.Query.ContainsKey("formId"))
+    {
+      questionnaireId = int.Parse(Request.Query["formId"]);
+      using (var db = new DatabaseContext())
+      {
+        Questionnaires questionnaire;
+        try
+        {
+          questionnaire = db.Questionnaires.First(q => q.Id == questionnaireId);
+          
+          <h1 class="row">@questionnaire.Title</h1>
+          <p class="row">@questionnaire.Invitation</p>
+          
+          // Query the questions from the database
+          var questions = db.Questions
+            .Where(q => q.Questionnaire == questionnaireId)
+            .OrderBy(q => q.OrderInQuestionnaire)
+            .ToList();
+          // Display them in a form, if the formId was valid
+          <form method="post" asp-page="SubmitForm" asp-route-questionnaireId="@questionnaireId">
+            @{
+              // If the form need to ask an ID from the participant
+              if (questionnaire.HasIdInputQuestion)
+              {
+                <div class="form-group">
+                  <h5 for="participant-id">Do you have a participant ID? If not, please leave this field blank</h5>
+                  <input class="form-control" type="text" id="participant-id" name="participant-id">
+                </div>
+              }
+              
+              var susQuestions = questions.FindAll(q => q.SusId != null); // System Usability Scale sub-questions
+                
+              foreach (var question in questions)
+              {
+                <div class="form-group" id="@question.Id">
+                  @{
+                    var choices = question.Choices == null ? new string[0] : question.Choices.Split(",");
+                    if (!question.OrderInSus.HasValue) // Display the question only if it's not part of a System Usability Scale
+                    {
+                      <h5>@question.Question</h5>
+                    }
+                    switch (question.Type)
+                    {
+                      case "checkbox":
+                        foreach (var choice in choices)
+                        {
+                          <div class="form-check">
+                            <input class="form-check-input inl" type="checkbox" id="@(question.Id)-@(choice)" name="@(question.Id)-@(choice)" value="@choice">
+                            <label class="form-check-label" for="@(question.Id)-@(choice)">@choice</label>
+                          </div>
+                        }
+                        break;
+                      case "radio-button":
+                        if (question.SusId == null) // If not a sub-question of a System Usability Scale
+                        {
+                          foreach (var choice in choices)
+                          {
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" id="@(question.Id)-@(choice)" name="@(question.Id)" value="@choice">
+                              <label class="form-check-label" for="@(question.Id)-@(choice)">@choice</label>
+                            </div>
+                          }
+                        }
+                        break;
+                      case "multi-line-text":
+                        @:<textarea class="form-control" id="@(question.Id)" name="@(question.Id)" rows="4" cols="50"></textarea>
+                        break;
+                      case "single-line-text":
+                        @:<input class="form-control" type="text" id="@(question.Id)" name="@(question.Id)">
+                        break;
+                      case "system-usability-scale":
+                        var header = question.Choices == null ? new string[0] : question.Choices.Split(",");
+                        // Filter out the questions for this group
+                        var subQuestions = susQuestions.FindAll(q => q.SusId == question.Id);
+                        // Display them in a table
+                        <table class="table table-bordered table-striped" id="@(question.Id)-table">
+                          <thead>
+                          <tr>
+                            <th></th>
+                            @foreach (var head in header)
+                            {
+                              @:<th>@head</th>
+                            }
+                          </tr>
+                          </thead>
+                          <tbody>
+                          @foreach (var subQuestion in subQuestions)
+                          {
+                            <tr>
+                              @* First column contains the questions *@
+                              <td>@subQuestion.Question</td>
+                              @{
+                                if (subQuestion.Choices != null)
+                                {
+                                  foreach (var choice in subQuestion.Choices.Split(",")) // Display the choices row by row
+                                  {
+                                    <td>
+                                      <input type="radio" id="@(subQuestion.Id)-@(choice)" name="@(subQuestion.Id)" value="@choice">
+                                      <label class="form-check-label" for="@(subQuestion.Id)-@(choice)">@choice</label>
+                                    </td>
+                                  }
+                                }
+                              }
+                            </tr>
+                          }
+                          </tbody>
+                        </table>
+                        break;
+                    }
+                  }
+                </div>
+              }
+            }
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        }
+        catch (Exception e) // If a corresponding questionnaire haven't been found in the database
+        {
+          if (e is ArgumentNullException || e is InvalidOperationException)
+          {
+            @:<p class="row">The linked questionnaire does not exist</p>
+          }
+        }
+      }
+    }
+    else // If the URL doesn't have a formId query
+    {
+      @:<p class="row">Invalid questionnaire URL</p>
+    }
+  }
+</div>

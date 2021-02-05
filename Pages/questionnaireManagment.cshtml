@@ -1,5 +1,5 @@
 ﻿@page
-@model CourseworkAC31007Agile.Pages.questionnaireManagmentModel
+@model CourseworkAC31007Agile.Pages.QuestionnaireManagmentModel
 @{
 }
 @{
@@ -34,7 +34,6 @@
 
     .btn {
         font-size: 15px;
-        font-weight: bold;
         border-radius: 20px;
         width: 150px;
     }
@@ -59,8 +58,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="container-fluid">
+                    <div class="container">
+                        <component type="typeof(ShowQuestionaires)" render-mode="Server" />
+                        <script src="_framework/blazor.server.js"></script>
+                    </div>
+                </div>
             </div>
         </div>
+        
     </form>
 </div>
 

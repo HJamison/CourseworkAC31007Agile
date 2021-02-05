@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CourseworkAC31007Agile.Pages
 {
-    public class QuestionnaireManagmentModel : PageModel
+    public class DatabaseTest2Model : PageModel
     {
         public void OnGet()
         {

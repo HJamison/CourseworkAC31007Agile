@@ -3,17 +3,15 @@
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.AspNetCore.Session;
 @inject IHttpContextAccessor HttpContextAccessor
-@model CourseworkAC31007Agile.Pages.LabManagerAccountModel
+@model CourseworkAC31007Agile.Pages.RemoveAccountModel
 @{
-    ViewData["Title"] = "Account Manager";
+    Layout = "_LayoutAccountActions";
 }
 
-@{
-    Layout = "_LayoutLabManager";
-}
 <style>
     .profile-form {
         width: 1100px;
+        height: 150px;
         margin: 25px auto;
     }
 
@@ -23,6 +21,7 @@
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
             border-radius: 30px;
+            height: 150px;
         }
 
         .profile-form h2 {
@@ -39,25 +38,25 @@
         border-radius: 20px;
         width: 150px;
     }
+
+    .inputbox {
+        max-width: 400px;
+    }
+
+    .margin {
+        margin-left: 370px;
+    }
 </style>
 
 <div class="profile-form">
-    <form>
+    <form method="post">
         <div class="container">
             <div class="profile-form">
-                <h2 class="text-center">Account Details</h2>
-                <label>Username: @HttpContextAccessor.HttpContext.Session.GetString("Username")</label>
-                <br />
-                <label>Name: @HttpContextAccessor.HttpContext.Session.GetString("Name")</label>
-                <br />
-                <label>Position: @HttpContextAccessor.HttpContext.Session.GetString("Permission")</label>
-                <br />
-                <label>Password: ************</label>
-                <br />
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Update</button>
-                </div>
-
+                <h2 class="text-center">Please confirm permanent removal of account: @HttpContextAccessor.HttpContext.Session.GetString("targetUsername")</h2>
+                <form method="POST">
+                    <button type="submit" class="btn btn-outline-success mb-1 margin" asp-route-data="confirm" asp-page-handler="AccountAction">Confirm</button>
+                    <button type="submit" class="btn btn-outline-warning mb-1" asp-route-data="cancel" asp-page-handler="AccountAction">Cancel</button>
+                </form>
             </div>
         </div>
     </form>

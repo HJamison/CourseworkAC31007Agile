@@ -13,11 +13,11 @@ See Project "Backlog"
 
 # Group Members:
 
-- Alex Storey ()
+- Alex Storey (180004407)
 - Harry Jamison ()
 - Patrizio Pigliacelli ()
 - Miklos Mayer ()
-- Lukasz Nozewski ()
+- Lukasz Nozewski (180004219)
 - Daniel Denley ()
 - Bjarne Kopplin (180016866)
 - Alek Alexiev ()
