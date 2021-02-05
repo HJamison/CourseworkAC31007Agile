@@ -17,7 +17,7 @@ See Project "Backlog"
 - Harry Jamison ()
 - Patrizio Pigliacelli ()
 - Miklos Mayer ()
-- Lukasz Nozewski ()
+- Lukasz Nozewski (180004219)
 - Daniel Denley ()
 - Bjarne Kopplin (180016866)
 - Alek Alexiev ()
