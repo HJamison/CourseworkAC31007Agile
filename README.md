@@ -11,7 +11,7 @@ See Project "Backlog"
  # Sprint 1
  scrum meeting: https://web.microsoftstream.com/video/83800e3c-0c90-4090-9684-b0307e1cc155
  
- #Pair programming:https://web.microsoftstream.com/video/7b590c24-d823-49b7-8003-e990f1c623a5
+ #Pair programming:https://web.microsoftstream.com/video/4384af37-5cf2-4bb7-8e53-67e6ee16db71?list=studio
 
 # Group Members:
 
