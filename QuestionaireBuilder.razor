@@ -6,6 +6,7 @@
     // public List<Question> qList = new List<Question>();
     public Questionaire newQuestionaire = new Questionaire();
     public Question tst = new Question();
+    public bool AnsFilled = false;
 
 
 }
@@ -170,32 +171,34 @@ Welcome to the questionaire builder.
             }
             @foreach (Answers tmpAns in tmp.questionAnswer)
             {
-                <div class="card w-75">
-                    @{ var ansTxt = tmpAns;
-                        int index = tmp.questionAnswer.IndexOf(ansTxt);
-                    }
+        <div class="card w-75">
+            @{ var ansTxt = tmpAns;
+                int index = tmp.questionAnswer.IndexOf(ansTxt);
+            }
+            @{AnsFilled = true;}
+            <div class="card-body">
+                <p class="card-text">@tmpAns.AnswerText</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" @bind="@tmpAns.Correct" />
+                    @code{ bool checkedValue = false; }
+                    @{ tmp.questionAnswer[index].Correct = checkedValue; }
 
-                    <div class="card-body">
-                        <p class="card-text">@tmpAns.AnswerText</p>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" @bind="@tmpAns.Correct" />
-                            @code{ bool checkedValue = false; }
-                            @{ tmp.questionAnswer[index].Correct = checkedValue; }
-
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Answer correct?
-                            </label>
-                        </div>
-
-                        <button type="button" @onclick="(EventArgs) => { tmp.questionAnswer.RemoveAt(index); }" class="btn btn-primary">remove</button>
-                    </div>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Answer correct?
+                    </label>
                 </div>
+
+                <button type="button" @onclick="(EventArgs) => { tmp.questionAnswer.RemoveAt(index); }" class="btn btn-primary">remove</button>
+            </div>
+        </div>
             }
         </form>
 
 
 
     }
+    @if (AnsFilled == true)
+    {
     <button type="button" @onclick="SaveQuestionaire" class="btn btn-primary btn-lg">Submit Questionaire</button>
     @code
 {
@@ -212,5 +215,6 @@ Welcome to the questionaire builder.
         }
 
     }
+        }
 
-}
+    }
