@@ -13,6 +13,8 @@ See Project "Backlog"
  
  #Pair programming:https://web.microsoftstream.com/video/4384af37-5cf2-4bb7-8e53-67e6ee16db71?list=studio
 
+The previous link may not work in case try here for pair programming: https://web.microsoftstream.com/video/6f3efa25-b58a-429c-9337-3a85de00b302
+
 # Group Members:
 
 - Alex Storey (180004407)
