@@ -28,9 +28,17 @@
       }
       else
       {
-        // Read it
-        participantId = int.Parse(Request.Form["participant-id"]);
+        try
+        {
+          // Read it
+          participantId = int.Parse(Request.Form["participant-id"]);
+        }
         // If the participant id is incorrect, abort
+        catch (FormatException e)
+        {
+          <h1>Invalid participant ID</h1>
+          return;
+        }
         if (!db.Participants.Any(p => p.Id == participantId))
         {
           <h1>Invalid participant ID</h1>
