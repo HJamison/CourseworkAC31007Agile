@@ -1,0 +1,24 @@
+﻿@using CourseworkAC31007Agile.Pages
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+@using CourseworkAC31007Agile.BackEnd.DatabaseModel;
+@{
+}
+<div>
+    @using (var db = new DatabaseContext())
+    {
+        var questionnaireList = new List<Questionnaires>();
+        questionnaireList = db.Questionnaires.ToList();
+
+        foreach (var questionnaire in questionnaireList)
+        {
+            <div class="card w-50">
+                <div class="card-body">
+                    <h5 class="card-title">@questionnaire.Title</h5>
+                    <a href="#" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        }
+    }
+
+</div>
