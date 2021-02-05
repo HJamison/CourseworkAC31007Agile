@@ -30,27 +30,31 @@
             <img href="co-researcher" src="/images/uniLogo.png" alt="University of Dundee" />
             <div class="collapse navbar-collapse" .id="navbarAltMarkup">
                 <div class="navbar-nav ml-5">
-                    <!--<a href="PrincipalResearchAccount.cshtml" class="btn">Account</a>
-                    <a href="PrincipalResearchAccessability.cshtml class=" btn"">Co-Researcher accessability</a>
-                    <a href="PrincipalResearchExperiments.cshtml class=" btn"">Experiment Dashboard</a>-->
-                    <!--<a class="nav-item nav-link active ml-4 mr-4" href="#">Account</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Co-Researcher accessability</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Access own experiments</a>
-                    <a class="nav-item nav-link ml-4 mr-4" href="#">Logout</a>-->
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/PrincipalResearcherAccount">Account</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/PrincipalResearcherAccessability">Co-researcher Accessability</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/PrincipalResearcherExperiments">Access own experiments</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/questionnaireManagment">Questionnaire Dahboard</a>
+                    <a class="nav-item nav-link ml-4 mr-4 navbar-text" asp-area="" asp-page="/EthicsPage">Ethics Statement</a>
                     <a class="nav-item nav-link ml-4 mr-4 navbar-text " asp-area="" asp-page="/Logout">Logout</a>
                 </div>
             </div>
         </nav>
     </header>
-	<footer class="border-top footer text-muted">
-		<div class="container">
-			&copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
-		</div>
-	</footer>
-	@RenderBody()
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CourseworkAC31007Agile - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    @using Microsoft.AspNetCore.Http
+    @using System
+    @if (Context.Session.GetString("Permission") == "Principal Researcher")
+    {
+        @RenderBody();
+    }
+    else
+    {
+        <h1 style="color: red">Access Denied</h1>
+        <!--@RenderBody() -->
+    }
 </body>
 </html>
